@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+
 function LoginForm({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,6 +17,7 @@ function LoginForm({ onLogin }) {
   }
 
   return (
+    <>
     <form onSubmit={handleSubmit}>
       <input
         type="email"
@@ -31,6 +33,8 @@ function LoginForm({ onLogin }) {
       />
       <button type="submit">Login</button>
     </form>
+   
+    </>
   );
 }
 

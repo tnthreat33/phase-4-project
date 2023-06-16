@@ -1,9 +1,9 @@
-
 import './App.css';
-import LogoutButton from './LogoutButton';
+import Header from './Header';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import { useEffect, useState } from 'react';
+import {Switch, Route} from "react-router-dom";
 
 function App() {
 
@@ -17,20 +17,27 @@ function App() {
     });
   }, []);
 
-  if (user){
-    return <h2>Welcome, {user.name}</h2>
-  } else{
-    return (
-      <div className="App">
-        <LoginForm />
-        <SignupForm />
-        <LogoutButton />
-      </div>
-    );
+  const handleLogin = (loggedInUser) => {
+    setUser(loggedInUser);
+  };
 
+  const handleLogout = () => {
+    setUser(null);
+  };
+
+  return(
+    <div>
+      <Header user= {user} onLogout={handleLogout}/>
+      <Switch>
+        <Route exact path= '/login'>
+          <LoginForm onLogin={handleLogin}/>
+        </Route>
+        <Route exact path= '/signup'>
+          <SignupForm />
+        </Route>
+      </Switch>
+    </div>
+  )
   }
-
-  
-}
 
 export default App;
