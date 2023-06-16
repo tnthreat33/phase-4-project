@@ -7,6 +7,7 @@ class UsersController < ApplicationController
       else
         render json: { error: user.errors.full_messages }, status: :unprocessable_entity
       end
+      
     end
   
     private

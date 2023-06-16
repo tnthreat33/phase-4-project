@@ -13,7 +13,7 @@
   User.create(
     name: "User #{i+1}",
     email: "user#{i+1}@example.com",
-    password: 'password123'
+    password_digest: 'password123'
   )
 end
 
