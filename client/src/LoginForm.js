@@ -1,32 +1,22 @@
 import React, { useState } from 'react';
 
-const LoginForm = () => {
+function LoginForm({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
-    try {
-      const response = await fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        // Store user data or token in frontend (e.g., local storage or React context)
-      } else {
-        const errorData = await response.json();
-        // Handle login error
-      }
-    } catch (error) {
-      // Handle network or other errors
-    }
-  };
+    fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    })
+      .then((r) => r.json())
+      .then((user) => onLogin(user));
+  }
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleSubmit}>
       <input
         type="email"
         placeholder="Email"
@@ -42,6 +32,6 @@ const LoginForm = () => {
       <button type="submit">Login</button>
     </form>
   );
-};
+}
 
 export default LoginForm;
